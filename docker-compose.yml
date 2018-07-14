@@ -1,0 +1,29 @@
+version: '2.0'
+
+services:
+
+   kafka:
+      image: daki/kafka
+      container_name: kafka
+      hostname: kafka
+      ports:
+         - "2181:2181"
+         - "9092:9092"
+         - "9001:9001"
+
+      volumes:
+        - /var/docker/kafka/c1/log/zookeeper:/var/log/zookeeper
+        - /var/docker/kafka/c1/data:/tmp/kafka-logs
+        - /var/docker/kafka/c1/log/kafka:/var/log/kafka-logs
+
+      environment:
+         - DEBUG=1
+         - CONSUMER_THREADS=1
+         - TOPICS=my-topic,some-other-topic
+# Util ?         - GROUP_ID=mymirror
+         - BROKER_ID=1
+         - ZK_CONNECT=kafka7zookeeper:2181/root/path
+         - ADVERTISED_PORT=9092
+         - ADVERTISED_HOST=192.168.2.38
+         - LOG_RETENTION_HOURS=1
+         - ZOO_LOG_DIR=/var/log/zookeeper
