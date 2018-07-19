@@ -1,3 +1,5 @@
+run Kafka in docker. This image contain Kafka and a zookeeper.
+
 # TODO
 ne plus lancer le supervisor en root
 faire fonctionner le logrotate
@@ -5,18 +7,18 @@ voir le mode creation automatique de topic
 
 # Build
 
-docker build -t daki/kafka .
+make build
 
 # Volume
 
 + /tmp/kafka-logs
-données du broker
+data of the broker
 
 + /var/log/zookeeper
-log du zookeeper
+zookeeper logs
 
 + /var/log/kafka-logs
-log de kafka
+kafka logs
 
 # Services
 
@@ -42,14 +44,16 @@ définies dans docker-compose
 * NUM_PARTITIONS: 
   configure the default number of log partitions per topic
 * BROKER_ID:
-  id du broker doit etre unique (et au format numerique)
+  id of the broker must be unique (and in numerical format)
 * ZOO_LOG_DIR: 
   repertoire des logs du zookeeper (disponible dans un volume)
 
-# Outil
+# Usefull commands
 
-Initialisation d'un producer qui va envoyer les données saisies sur l'entrée standard dans le topic syslog
-kafkacat -b 192.168.2.38 -t syslog -P
+## Producer 
 
-Initialisation d'un consumer qui écoute sur le topic syslog en démarrant à l'offset 2
-kafkacat -b 192.168.2.38 -t syslog -o 2
+Send text from standard input to the broker : kafkacat -b 192.168.2.38 -t syslog -P
+
+## Consumer
+
+Starting a consumer listening on topic Syslog starting at offset 2 : kafkacat -b 192.168.2.38 -t syslog -o 2
