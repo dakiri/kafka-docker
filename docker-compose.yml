@@ -19,7 +19,7 @@ services:
       environment:
          - DEBUG=1
          - CONSUMER_THREADS=1
-         - TOPICS=my-topic,some-other-topic
+         - TOPICS=myTopic,syslog
          - BROKER_ID=1
          - ZK_CONNECT=kafka7zookeeper:2181/root/path
          - ADVERTISED_PORT=9092

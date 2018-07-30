@@ -7,7 +7,7 @@ ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		apt-transport-https vim procps wget gnupg iputils-ping dnsutils
+		apt-transport-https vim procps wget gnupg iputils-ping dnsutils kafkacat
 
 RUN apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
@@ -15,7 +15,6 @@ RUN mkdir -p /var/log/supervisor
 RUN mkdir /usr/share/man/man1 -p
 RUN apt-get install -y --no-install-recommends openjdk-8-jre-headless libcap2-bin
 
-# Install Kafka, Zookeeper
 RUN apt-get install -y zookeeper
 # kafka offline version available in ./kafka-src
 #RUN wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz 
@@ -44,7 +43,6 @@ RUN chmod 600 /etc/crontab
 
 RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime && echo Europe/Paris > /etc/timezone
 
-RUN apt-get install -y --no-install-recommends kafkacat
 # 2181 is zookeeper, 9092/9094 is kafka, 9001 is JMX
 EXPOSE 2181 9092 9094 9001
 
