@@ -57,3 +57,24 @@ Send text from standard input to the broker : kafkacat -b 192.168.2.38 -t syslog
 ## Consumer
 
 Starting a consumer listening on topic Syslog starting at offset 2 : kafkacat -b 192.168.2.38 -t syslog -o 2
+
+## JMX
+
+java -jar ./tools/jmxterm-1.0.0-uber.jar
+
+$>open 192.168.2.38:9001
+
+$>get -s -b kafka.server:name=MessagesInPerSec,topic=syslog,type=BrokerTopicMetrics OneMinuteRate
+
+#mbean = kafka.server:name=MessagesInPerSec,topic=syslog,type=BrokerTopicMetrics:
+
+2.3975788135479896E-4
+
+$>get -s -b kafka.server:name=MessagesInPerSec,type=BrokerTopicMetrics OneMinuteRate
+
+#mbean = kafka.server:name=MessagesInPerSec,type=BrokerTopicMetrics:
+
+0.04644891148336092
+
+
+OneMinuteRate / FifteenMinuteRate

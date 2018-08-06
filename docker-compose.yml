@@ -8,8 +8,14 @@ services:
       hostname: kafka
       ports:
          - "2181:2181"
-         - "9092:9092"
          - "9001:9001"
+         - "192.168.2.38:9092/tcp:9092/tcp"
+         - "192.168.2.38:9001/tcp:9001/tcp"
+
+      network_mode: "host"
+
+      extra_hosts:
+         kafka: 192.168.2.38
 
       volumes:
         - /var/docker/kafka/c1/log/zookeeper:/var/log/zookeeper
@@ -26,3 +32,6 @@ services:
          - ADVERTISED_HOST=192.168.2.38
          - LOG_RETENTION_HOURS=1
          - ZOO_LOG_DIR=/var/log/zookeeper
+         - KAFKA_JMX_OPTS=-Djava.rmi.server.hostname=192.168.2.38 -Djava.net.preferIPv4Stack=true -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false  -Dcom.sun.management.jmxremote.ssl=false
+         - JMX_PORT=9001
+
