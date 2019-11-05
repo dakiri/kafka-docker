@@ -1,10 +1,5 @@
 run Kafka in docker. This image contain Kafka and a zookeeper.
 
-# TODO
-ne plus lancer le supervisor en root
-faire fonctionner le logrotate
-voir le mode creation automatique de topic
-
 # Build
 
 make build
